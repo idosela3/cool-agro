@@ -56,10 +56,8 @@ const unsigned long uploadInterval = 60000; // 1 minute
 
 // Function Prototypes
 void connectWiFi();
-void connectMQTT();
 void uploadDataToThingSpeak();
 void displayMessage(int index);
-void controlIrrigation();
 void handleRainSensor();
 void enterDeepSleep();
 
@@ -72,9 +70,6 @@ void setup() {
 
   // Initialize WiFi
   connectWiFi();
-
-  // Initialize MQTT
-  mqttClient.setServer(mqtt_server, mqtt_port);
 
   // Initialize OLED
   u8g2.begin();
@@ -136,22 +131,13 @@ void loop() {
 }
 
 void connectWiFi() {
+  Serial.print("Connecting to WiFi...");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
   Serial.println("\nWiFi Connected");
-}
-
-void connectMQTT() {
-  while (!mqttClient.connected()) {
-    if (mqttClient.connect("ESP32Client", mqtt_user, mqtt_password)) {
-      Serial.println("Connected to MQTT");
-    } else {
-      delay(5000);
-    }
-  }
 }
 
 void uploadDataToThingSpeak() {
@@ -162,11 +148,23 @@ void uploadDataToThingSpeak() {
   float temperature = sht31.readTemperature();
   float humidity = sht31.readHumidity();
 
+  // Debugging: Print sensor data to Serial Monitor
+  Serial.println("Uploading data to ThingSpeak:");
+  Serial.print("Temperature: ");
+  Serial.println(temperature);
+  Serial.print("Humidity: ");
+  Serial.println(humidity);
+  Serial.print("Rainfall: ");
+  Serial.println(totalRainfall);
+
+  // Send data to ThingSpeak
   ThingSpeak.setField(1, temperature);
   ThingSpeak.setField(2, humidity);
   ThingSpeak.setField(3, totalRainfall);
 
   int response = ThingSpeak.writeFields(channelID, writeAPIKey);
+
+  // Debugging: Check the response from ThingSpeak
   if (response == 200) {
     Serial.println("Data uploaded successfully!");
   } else {
@@ -201,7 +199,7 @@ void displayMessage(int index) {
       break;
     case 4:
       u8g2.setCursor(0, 24);
-      u8g2.print("Rain (24h): ");
+      u8g2.print("Rain: ");
       u8g2.print(totalRainfall);
       u8g2.print(" mm");
       break;
