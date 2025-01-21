@@ -1,0 +1,219 @@
+Hi chat, I want to start over - 
+I have a final project in the agrotech lab that I need to build a smart irrigation system.
+
+My system is built from esp32, sensors, OLED screen and a button.
+
+The esp32 is connected to 2 sensors -
+- SHT3x (temperature and RH) (connected to pin A4)
+- rain sensor (connected to pin A0)
+
+The esp32 will upload the data from the sensors every 0.5 minutes to my channel at thingspeak to 3 different fields (field 1 - temperature, field 2 - RH, field 3 - rain sensor). (this act will be called orchestra for my convenience). 
+
+My thingspeak data – 
+Write API Key - UC49K3PIIR0N7G5E
+Read API Keys - FFMF9BQF85TRS7KQ
+Channel ID: 2799038
+
+The working code for the rain sensor is the following – 
+// Pin configuration
+#define RAIN_SENSOR_PIN 36  // A0 (GPIO36) for ADC input
+#define ADC_MAX 4095        // Maximum ADC value for 12-bit resolution
+#define V_REF 3.3           // Reference voltage of ESP32 (3.3V)
+#define HIGH_THRESHOLD 2.5  // Threshold voltage to consider "high" (near 3.3V)
+#define LOW_THRESHOLD 0.8   // Threshold voltage to consider "low" (near 0V)
+
+// Rainfall calculation
+const float rainPerClick = (50.0 / 24.0) * (10.0 / 55.0); // mm per click
+volatile int clickCount = 0;   // Counts the number of clicks
+float totalRainfall = 0.0;     // Total rainfall in mm
+
+// Timing
+unsigned long startTime = 0;  // Start time for the 30-second interval
+const unsigned long interval = 30000; // 30 seconds in milliseconds
+
+// Tracks the last voltage state
+bool wasHigh = false;
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(115200);
+
+  // Configure rain sensor pin as input
+  pinMode(RAIN_SENSOR_PIN, INPUT);
+
+  Serial.println("Rainfall measurement system initialized.");
+  startTime = millis(); // Initialize the start time
+}
+
+void loop() {
+  // Read the analog value from the rain sensor pin
+  int analogValue = analogRead(RAIN_SENSOR_PIN);
+
+  // Convert the analog value to voltage
+  float voltage = (analogValue / (float)ADC_MAX) * V_REF;
+
+  // Detect clicks based on voltage transitions
+  if (voltage >= HIGH_THRESHOLD && !wasHigh) {
+    // Voltage transitions from low to high
+    wasHigh = true;
+  } else if (voltage <= LOW_THRESHOLD && wasHigh) {
+    // Voltage transitions from high to low and completes a cycle
+    wasHigh = false;
+    clickCount++;
+
+    // Update total rainfall
+    totalRainfall += rainPerClick;
+  }
+
+  // Check if 30 seconds have elapsed
+  unsigned long currentTime = millis();
+  if (currentTime - startTime >= interval) {
+    // Display the total rainfall for the last 30 seconds
+    Serial.print("Rainfall in the last 30 seconds: ");
+    Serial.print(totalRainfall, 2); // Print rainfall with 2 decimal places
+    Serial.println(" mm");
+
+    // Reset for the next interval
+    totalRainfall = 0.0;
+    clickCount = 0;
+    startTime = currentTime; // Reset the timer
+  }
+
+  // Small delay for stability
+  delay(10);
+}
+
+The esp32 will collect the total rain data from the rain sensor and will upload the data every 0.5 minutes at the orchestra. 
+  
+the esp32 will control the irrigation faucet through MQTT to a different micro controller (0 means closed faucet and 1 means open faucet and irrigate). (use PubSubClient.h library and not MQTTClient.h library). 
+
+The data for operating the MQTT is the following –
+#include <WiFi.h>
+#include <PubSubClient.h>
+
+// WiFi credentials
+const char* ssid = "agrotech";          // Replace with your WiFi SSID
+const char* password = "1Afuna2gezer";  // Replace with your WiFi Password
+
+// MQTT broker details
+const char* mqtt_server = "192.168.0.102";    // IP address of Home Assistant
+const int mqtt_port = 1883;                   // Default MQTT port
+const char* mqtt_user = "mqtt-user";          // MQTT username
+const char* mqtt_password = "1234";           // MQTT password
+const char* mqtt_topic = "/greenhouse/outside/irrigation/solenoid5"; // MQTT topic
+
+// Touch pin configuration
+#define TOUCH_PIN A4  // Use GPIO 4 as touch pin (T0 on ESP32)
+
+// MQTT client and WiFi client
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+// State variable to track touch pin state
+bool send_message = false;
+
+void setup_wifi() {
+  Serial.print("Connecting to WiFi: ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWiFi connected");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void reconnect() {
+  // Attempt to reconnect to the MQTT broker
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    if (client.connect("ESP32Client", mqtt_user, mqtt_password)) {
+      Serial.println("connected");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" Retrying in 5 seconds...");
+      delay(5000);
+    }
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  // Initialize WiFi
+  setup_wifi();
+
+  // Set up MQTT
+  client.setServer(mqtt_server, mqtt_port);
+
+  // Ensure the ESP32 starts connected to the MQTT broker
+  reconnect();
+}
+
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+
+  // Read the state of the touch pin
+  bool is_touched = touchRead(TOUCH_PIN) < 40;  // If the value is less than 40, the pin is being touched
+
+  // Send "1" if the pin is being touched
+  if (is_touched) {
+    if (!send_message) {
+      client.publish(mqtt_topic, "1");
+      Serial.println("Sent: 1");
+      send_message = true;  // Set flag to avoid sending multiple times while touching
+    }
+  } 
+  // Send "0" if the pin is not being touched
+  else {
+    if (send_message) {
+      client.publish(mqtt_topic, "0");
+      Serial.println("Sent: 0");
+      send_message = false;  // Reset the flag when pin is no longer touched
+    }
+  }
+
+  // Optional: Small delay to avoid flooding the MQTT server with messages
+  delay(100);  // Adjust the delay if necessary
+}
+
+
+The code above is an MQTT code that works but don’t take the part of the operating on touch because it is not relevant to my project.
+
+We want to irrigate twice a day at 7 am for 5 minutes and at 7 pm for 5 minutes.
+
+The esp32 will read from field 3 from my channel at thingspeak, every day at 6 am and act accordingly -
+if the rain sensor (field 3 at thingspeak) shows that it was raining in the past 24 hour more than 10 mm total, than it will not irrigate that same day.
+ 
+the esp32 is connected to an OLED screen that is controlled by a button in pin A4, the default of the OLED screen is off, but when the button is pressed, the following will happen - 
+first button press - 
+"Hi handsome!" (in big font)
+"(click the button)" (in small font)
+
+second button press - 
+temperature: "" (in the comma it will show the temperature from the SHT3x)
+
+third button press -
+RH: "" (in the comma it will show the RH from the SHT3x)
+
+fourth button press -
+amount of rain: "" (in the comma it will show the total rain amount of the last 24 hours in mm units, from field 3 in my channel at thingspeak)
+after 30 seconds from the last button press - turn off the OLED.
+
+
+
+
+
+
+
+
+
+
