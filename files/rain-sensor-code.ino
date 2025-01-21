@@ -7,8 +7,12 @@
 
 // Rainfall calculation
 const float rainPerClick = (50.0 / 24.0) * (10.0 / 55.0); // mm per click
-volatile int clickCount = 0; // Counts the number of clicks
-float totalRainfall = 0.0;   // Total rainfall in mm
+volatile int clickCount = 0;   // Counts the number of clicks
+float totalRainfall = 0.0;     // Total rainfall in mm
+
+// Timing
+unsigned long startTime = 0;  // Start time for the 30-second interval
+const unsigned long interval = 30000; // 30 seconds in milliseconds
 
 // Tracks the last voltage state
 bool wasHigh = false;
@@ -21,6 +25,7 @@ void setup() {
   pinMode(RAIN_SENSOR_PIN, INPUT);
 
   Serial.println("Rainfall measurement system initialized.");
+  startTime = millis(); // Initialize the start time
 }
 
 void loop() {
@@ -41,13 +46,22 @@ void loop() {
 
     // Update total rainfall
     totalRainfall += rainPerClick;
+  }
 
-    // Print rainfall with "mm" for both Serial Monitor and Plotter
-    Serial.print(totalRainfall, 2); // Print rainfall value with 2 decimal places
+  // Check if 30 seconds have elapsed
+  unsigned long currentTime = millis();
+  if (currentTime - startTime >= interval) {
+    // Display the total rainfall for the last 30 seconds
+    Serial.print("Rainfall in the last 30 seconds: ");
+    Serial.print(totalRainfall, 2); // Print rainfall with 2 decimal places
     Serial.println(" mm");
+
+    // Reset for the next interval
+    totalRainfall = 0.0;
+    clickCount = 0;
+    startTime = currentTime; // Reset the timer
   }
 
   // Small delay for stability
   delay(10);
 }
-
