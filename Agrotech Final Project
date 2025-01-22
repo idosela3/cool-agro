@@ -32,9 +32,9 @@ The area of our sensor is:
 
 To determine the amount of water captured by the sensor, we use the ratio of the areas between the box and the sensor:
 
-\[
-V_{\text{sensor}} = \frac{A_{\text{sensor}}}{A_{\text{box}}} \times V_{\text{box}}
-\]
+!![Rain Sensor Formula](path/to/folder/1.png)
+
+
 
 Where:  
 - \(V_{\text{box}}\) is the volume of water falling into the box, which is 1 liter.
