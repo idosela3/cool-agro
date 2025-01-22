@@ -1,14 +1,3 @@
-### **Agrotech Final Project**
-
-#### **Components**
-1. 2x PCB (Printed Circuit Board)  
-2. 1x Rain Sensor  
-3. 1x OLED Screen  
-4. 1x FireBeetle 2 ESP32-E  
-5. 1x SHT31 Sensor (Temperature and RH)  
-6. 1x Buck Converter   
-7.
-
 
 
 
@@ -32,9 +21,9 @@ The area of our sensor is:
 
 To determine the amount of water captured by the sensor, we use the ratio of the areas between the box and the sensor:
 
-!![Rain Sensor Formula](path/to/folder/1.png)
-
-
+\[
+V_{\text{sensor}} = \frac{A_{\text{sensor}}}{A_{\text{box}}} \times V_{\text{box}}
+\]
 
 Where:  
 - \(V_{\text{box}}\) is the volume of water falling into the box, which is 1 liter.
