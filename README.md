@@ -1,3 +1,15 @@
+### **Agrotech Final Project**
+
+#### **Components**
+1. 2x PCB (Printed Circuit Board)  
+2. 1x Rain Sensor  
+3. 1x OLED Screen  
+4. 1x FireBeetle 2 ESP32-E  
+5. 1x SHT30 Sensor (Temperature and RH)  
+6. 1x Buck Converter  
+7. 2x Boxes
+
+
 
 
 
@@ -21,55 +33,43 @@ The area of our sensor is:
 
 To determine the amount of water captured by the sensor, we use the ratio of the areas between the box and the sensor:
 
-\[
-V_{\text{sensor}} = \frac{A_{\text{sensor}}}{A_{\text{box}}} \times V_{\text{box}}
-\]
+![Rain Sensor Formula](1.png)
+
+
+
 
 Where:  
-- \(V_{\text{box}}\) is the volume of water falling into the box, which is 1 liter.
+![Vbox](2.png)
+ is the volume of water falling into the box, which is 1 liter.
 
 By substituting the values into the formula:
 
-\[
-V_{\text{sensor}} = \frac{55 \, \text{cm}^2}{100^2 \, \text{cm}^2} \times 1 \, \text{L}
-\]
+
+![Vsensor](3.png)
 
 Simplifying further:
 
-\[
-V_{\text{sensor}} = \frac{55 \, \text{cm}^2}{10^4 \, \text{cm}^2} \times 10^3 \, \text{mL}
-\]
-
-\[
-V_{\text{sensor}} = 5.5 \, \text{mL}
-\]
+![Simplifying further](4.png)
 
 From this calculation, we observe that when 1 mm of rain falls into the box (or 1 liter), the amount of water collected by the sensor is 5.5 mL. Thus, the conversion factor is:
 
-\[
-1 \, \text{mm}_{\text{box}} = 5.5 \, \text{mL}_{\text{sensor}}
-\]
+![Simplifying further](5.png)
 
 #### Conversion from Clicks to mm
 After determining the conversion factor between the rainfall in mm for the box and the volume in mL collected by the sensor, we now convert clicks to mL and subsequently to mm. To do so, we use **Assumption 2**.
 
 Substituting **Assumption 2** into the formula:
 
-\[
-1 \, \text{mm}_{\text{box}} = 5.5 \times \frac{24}{50} \, \text{clicks}
-\]
+![Box](6.png)
 
 Isolating the value per click:
 
-\[
-1 \, \text{click} = \frac{1}{5.5 \times \frac{24}{50}} \, \text{mm}
-\]
+![Simplifying further](7.png)
+
 
 Thus, we find that each click represents:
 
-\[
-1 \, \text{click} = \frac{50}{5.5 \times 24} \, \text{mm}
-\]
+![Simplifying further](8.png)
 
 This calculation provides the conversion rate from clicks to millimeters of rainfall.
 
