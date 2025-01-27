@@ -42,6 +42,34 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 
 
 
+### Rain Sensor 
+![Rain Sensor](Ra.jpg)
+
+![Rain Sensor](Rai.jpg)
+
+![Rain Sensor](R.jpg)
+
+
+
+
+### Internal Components
+#### Main Circuit Board
+![Main Circuit Board](main.jpg)
+
+### PCB  5X7 cm:
+![Board](p.jpg)
+
+### PCB 9x15 cm:
+![Board2](p2.jpg)
+
+
+
+
+
+
+
+
+
 **Assumptions:**
 1. **50 mL = 24 clicks** (experimentally verified in the lab).
 2. **1 mL = 24/50 clicks**.
