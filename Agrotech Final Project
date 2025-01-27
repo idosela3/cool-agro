@@ -1,14 +1,25 @@
-### **Agrotech Final Project**
 
-#### **Components**
-1. 2x PCB (Printed Circuit Board)  
-2. 1x Rain Sensor  
-3. 1x OLED Screen  
-4. 1x FireBeetle 2 ESP32-E  
-5. 1x SHT30 Sensor (Temperature and RH)  
-6. 1x Buck Converter  
-7. 2x Boxes
+# I'm Singing in the Rain
 
+![Singing in the Rain](G_converted.gif)
+
+
+
+#### *Components*
+1. 1x PCB  5X7 cm(Printed Circuit Board) 
+2. 1x PCB 9x15
+3. 2x Boxes 
+4. 1x FireBeetle 2 ESP32-E
+5. 1x botton 
+6. 1x Buck convertor 
+7. 1x O led screen 
+8. 1x Resistor 1K 
+9. 1x Rain Sensor   
+10. 1x OLED Screen  
+11. 1 liter of rain water = 1 Kg (under assumptions)
+ sensors: 
+12. 1x SHT30 Sensor (Temperature and RH)    
+13. 1x Buck Converter
 
 
 
