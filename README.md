@@ -13,13 +13,12 @@
 6. 1x Buck convertor 
 7. 1x O led screen 
 8. 1x Resistor 1K 
-9. 1x Rain Sensor   
-10. 1x OLED Screen  
+ 
+9. 1x OLED Screen   
 
  sensors: 
 1. 1x SHT30 Sensor (Temperature and RH)    
-2. 1x Buck Converter
-
+2. 1x Rain Sensor 
 
 
 
@@ -31,6 +30,17 @@ Each click corresponds to X mm of rainfall.
 
 #### Conversion Methodology
 We will explain how the number of clicks is converted into milliliters (mL) and subsequently into millimeters (mm).
+
+
+### External View
+![External View](URL-to-external-image)
+
+
+
+
+
+
+
 
 **Assumptions:**
 1. **50 mL = 24 clicks** (experimentally verified in the lab).
@@ -76,12 +86,12 @@ Substituting **Assumption 2** into the formula:
 
 Isolating the value per click:
 
-![Simplifying further](7.png)
+![Simplifying further](new7.png)
 
 
 Thus, we find that each click represents:
 
-![Simplifying further](8.png)
+![Simplifying further](new8.png)
 
 This calculation provides the conversion rate from clicks to millimeters of rainfall.
 
@@ -104,8 +114,8 @@ This graph represents the temperature data collected by the sensor.
 
 
 
-### Humidity Graph
-This graph illustrates the humidity levels measured by the sensor.
+### RH Graph
+This graph illustrates the RH levels measured by the sensor.
 ![Humidity Graph](HR.jpg)
 
 
