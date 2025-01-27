@@ -104,8 +104,8 @@ This graph represents the temperature data collected by the sensor.
 
 
 
-### Humidity Graph
-This graph illustrates the humidity levels measured by the sensor.
+### RH Graph
+This graph illustrates the RH levels measured by the sensor.
 ![Humidity Graph](HR.jpg)
 
 
