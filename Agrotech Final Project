@@ -42,6 +42,23 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 
 
 
+### Internal Components
+#### Main Circuit Board
+![Main Circuit Board](main.jpg)
+
+
+![Board](p.jpg)
+
+![Board2](p2.jpg)
+
+
+
+
+
+
+
+
+
 **Assumptions:**
 1. **50 mL = 24 clicks** (experimentally verified in the lab).
 2. **1 mL = 24/50 clicks**.
