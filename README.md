@@ -64,7 +64,8 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 
 
 
-
+### Our Circuuit Diagram
+![Diagram](.jpg)
 
 
 
