@@ -4,7 +4,6 @@
 ![Singing in the Rain](G_converted.gif)
 
 
-
 #### *Components*
 1. 1x PCB  5X7 cm(Printed Circuit Board) 
 2. 1x PCB 9x15
@@ -27,7 +26,8 @@
 
 ### Rain Sensor Description and Calculation Methodology
 
-The rain sensor we are using operates based on gravity. The sensor consists of a surface that drains water into a small container. Once a certain amount of water accumulates, the container tips due to the weight, producing a clicking sound.
+The rain sensor we are using operates based on gravity. It consists of a surface that drains water into a small container. Once a certain amount of water accumulates, the container tips due to the weight, producing a clicking sound.
+Each click corresponds to X mm of rainfall.
 
 #### Conversion Methodology
 We will explain how the number of clicks is converted into milliliters (mL) and subsequently into millimeters (mm).
@@ -86,3 +86,31 @@ Thus, we find that each click represents:
 This calculation provides the conversion rate from clicks to millimeters of rainfall.
 
 ---
+
+
+
+
+
+
+
+
+
+### Temperature Graph
+This graph represents the temperature data collected by the sensor.
+![Temperature Graph](Temp.jpg)
+
+
+
+
+### Humidity Graph
+This graph illustrates the humidity levels measured by the sensor.
+![Humidity Graph](HR.jpg)
+
+
+
+
+
+### Rain Graph
+This graph shows the rainfall data captured by the rain sensor.
+![Rain Graph](Rain.jpg)
+
