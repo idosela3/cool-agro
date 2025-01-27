@@ -4,7 +4,6 @@
 ![Singing in the Rain](G_converted.gif)
 
 
-
 #### *Components*
 1. 1x PCB  5X7 cm(Printed Circuit Board) 
 2. 1x PCB 9x15
@@ -16,10 +15,10 @@
 8. 1x Resistor 1K 
 9. 1x Rain Sensor   
 10. 1x OLED Screen  
-11. 1 liter of rain water = 1 Kg (under assumptions)
+
  sensors: 
-12. 1x SHT30 Sensor (Temperature and RH)    
-13. 1x Buck Converter
+1. 1x SHT30 Sensor (Temperature and RH)    
+2. 1x Buck Converter
 
 
 
@@ -27,7 +26,8 @@
 
 ### Rain Sensor Description and Calculation Methodology
 
-The rain sensor we are using operates based on gravity. The sensor consists of a surface that drains water into a small container. Once a certain amount of water accumulates, the container tips due to the weight, producing a clicking sound.
+The rain sensor we are using operates based on gravity. It consists of a surface that drains water into a small container. Once a certain amount of water accumulates, the container tips due to the weight, producing a clicking sound.
+Each click corresponds to X mm of rainfall.
 
 #### Conversion Methodology
 We will explain how the number of clicks is converted into milliliters (mL) and subsequently into millimeters (mm).
@@ -35,6 +35,7 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 **Assumptions:**
 1. **50 mL = 24 clicks** (experimentally verified in the lab).
 2. **1 mL = 24/50 clicks**.
+3. **1 liter of rain water = 1 Kg** (under assumptions)
 
 To simplify the calculation, we compare the values obtained to a box with an area of 100 cm² and a height of 1 mm. This box serves as a model for rain falling outside the sensor. The box's volume is 1 liter, meaning that 1 liter of water fully fills the box, creating a 1-mm water layer. Assuming rain has filled the box, we can state:  
 **1 L = 1 mm**.
@@ -85,3 +86,32 @@ Thus, we find that each click represents:
 This calculation provides the conversion rate from clicks to millimeters of rainfall.
 
 ---
+
+
+
+
+
+
+## Sensor Data Visualization
+Graphs representing the collected data from the sensors, including temperature, humidity, and rainfall.
+
+
+
+### Temperature Graph
+This graph represents the temperature data collected by the sensor.
+![Temperature Graph](Temp.jpg)
+
+
+
+
+### Humidity Graph
+This graph illustrates the humidity levels measured by the sensor.
+![Humidity Graph](HR.jpg)
+
+
+
+
+
+### Rain Graph
+This graph shows the rainfall data captured by the rain sensor.
+![Rain Graph](Rain.jpg)
