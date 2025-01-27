@@ -13,13 +13,12 @@
 6. 1x Buck convertor 
 7. 1x O led screen 
 8. 1x Resistor 1K 
-9. 1x Rain Sensor   
-10. 1x OLED Screen  
+ 
+9. 1x OLED Screen   
 
  sensors: 
 1. 1x SHT30 Sensor (Temperature and RH)    
-2. 1x Buck Converter
-
+2. 1x Rain Sensor 
 
 
 
@@ -31,6 +30,10 @@ Each click corresponds to X mm of rainfall.
 
 #### Conversion Methodology
 We will explain how the number of clicks is converted into milliliters (mL) and subsequently into millimeters (mm).
+
+
+### External View
+![External View](URL-to-external-image)
 
 
 
