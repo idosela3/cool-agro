@@ -16,10 +16,10 @@
 8. 1x Resistor 1K 
 9. 1x Rain Sensor   
 10. 1x OLED Screen  
-11. 1 liter of rain water = 1 Kg (under assumptions)
+
  sensors: 
-12. 1x SHT30 Sensor (Temperature and RH)    
-13. 1x Buck Converter
+1. 1x SHT30 Sensor (Temperature and RH)    
+2. 1x Buck Converter
 
 
 
@@ -35,6 +35,7 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 **Assumptions:**
 1. **50 mL = 24 clicks** (experimentally verified in the lab).
 2. **1 mL = 24/50 clicks**.
+3. **1 liter of rain water = 1 Kg** (under assumptions)
 
 To simplify the calculation, we compare the values obtained to a box with an area of 100 cm² and a height of 1 mm. This box serves as a model for rain falling outside the sensor. The box's volume is 1 liter, meaning that 1 liter of water fully fills the box, creating a 1-mm water layer. Assuming rain has filled the box, we can state:  
 **1 L = 1 mm**.
