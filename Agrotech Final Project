@@ -11,11 +11,9 @@
 4. 1x FireBeetle 2 ESP32-E
 5. 1x botton 
 6. 1x Buck convertor 
-7. 1x O led screen 
-8. 1x Resistor 1K 
+7. 1x Resistor 1K 
+8. 1x OLED Screen 
  
-9. 1x OLED Screen   
-
  sensors: 
 1. 1x SHT30 Sensor (Temperature and RH)    
 2. 1x Rain Sensor 
