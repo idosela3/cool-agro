@@ -4,6 +4,8 @@
 ![Singing in the Rain](G_converted.gif)
 
 
+Dolev Arav, Yehonatn Dimentman, Ido Sela, Liana Yohananov
+
 #### *Components*
 1. 1x PCB  5X7 cm(Printed Circuit Board) 
 2. 1x PCB 9x15
@@ -171,3 +173,4 @@ This graph illustrates the RH levels measured by the sensor.
 ### Rain Graph
 This graph shows the rainfall data captured by the rain sensor.
 ![Rain Graph](Rain.jpg)
+
