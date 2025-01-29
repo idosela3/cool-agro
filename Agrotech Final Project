@@ -170,6 +170,7 @@ This graph represents the temperature data collected by the sensor.
 
 
 
+
 ### RH Graph
 This graph illustrates the RH levels measured by the sensor.
 ![Humidity Graph](files/HR.jpg)
