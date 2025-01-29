@@ -11,47 +11,23 @@
 4. 1x FireBeetle 2 ESP32-E
 5. 1x botton 
 6. 1x Buck convertor 
-7. 1x Resistor 1K 
+7. 1x Resistor 1KΩ 
 8. 1x OLED Screen 
  
  sensors: 
 1. 1x SHT30 Sensor (Temperature and RH)    
 2. 1x Rain Sensor 
 
+## System Goals  
+The system will irrigate the plot every day at 5 AM and 5 PM based on the total amount of rain that fell in the last 12 hours.  
 
-
-
-### Rain Sensor Description and Calculation Methodology
-
-The rain sensor we are using operates based on gravity. It consists of a surface that drains water into a small container. Once a certain amount of water accumulates, the container tips due to the weight, producing a clicking sound.
-Each click corresponds to X mm of rainfall.
-
-#### Conversion Methodology
-We will explain how the number of clicks is converted into milliliters (mL) and subsequently into millimeters (mm).
-
+- **0 mm** → Irrigates for **10 minutes**  
+- **1-5 mm** → Irrigates for **5 minutes**  
+- **5 mm and above** → **No irrigation**  
 
 
 ### External View
 ![External View](External1.jpg)
-
-
-
-
-### Oled screen
-The OLED screen is controlled by a button. When the button is pressed, the screen displays the data collected by the sensors in the past hour.
-![Device Demo](vid_converted.gif)
-
-
-
-
-
-### Rain Sensor 
-![Rain Sensor](Ra.jpg)
-
-![Rain Sensor](Rai.jpg)
-
-![Rain Sensor](R.jpg)
-
 
 
 
@@ -70,6 +46,41 @@ The OLED screen is controlled by a button. When the button is pressed, the scree
 ### Our Circuuit Diagram
 
 ![Diagram](Diagram.jpg)
+
+
+
+### Rain Sensor Description and Calculation Methodology
+
+The rain sensor we are using operates based on gravity. It consists of a surface that drains water into a small container. Once a certain amount of water accumulates, the container tips due to the weight, producing a clicking sound.
+Each click corresponds to X mm of rainfall.
+
+#### Conversion Methodology
+We will explain how the number of clicks is converted into milliliters (mL) and subsequently into millimeters (mm).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Rain Sensor 
+![Rain Sensor](Ra.jpg)
+
+![Rain Sensor](Rai.jpg)
+
+![Rain Sensor](R.jpg)
+
+
+
+
+
 
 
 
@@ -133,7 +144,9 @@ This calculation provides the conversion rate from clicks to millimeters of rain
 
 
 
-
+### Oled screen
+The OLED screen is controlled by a button. When the button is pressed, the screen displays the data collected by the sensors in the past hour.
+![Device Demo](vid_converted.gif)
 
 ## Sensor Data Visualization
 Graphs representing the collected data from the sensors, including temperature, humidity, and rainfall.
