@@ -63,7 +63,8 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 
 
 ### Our Circuuit Diagram
-![Diagram](.jpg)
+The connection were made on the board according to the schematics down below (the lamps represent the RY-GH PHOTOSYNTHETICALLY EFFECTIVE RADIATION SENSORS):
+![Diagram](Diagram.jpg)
 
 
 
