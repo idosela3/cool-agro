@@ -30,11 +30,16 @@ Each click corresponds to X mm of rainfall.
 We will explain how the number of clicks is converted into milliliters (mL) and subsequently into millimeters (mm).
 
 
+
 ### External View
-![External View](URL-to-external-image)
+![External View](External1.jpg)
 
 
 
+
+### Oled screen
+The OLED screen is controlled by a button. When the button is pressed, the screen displays the data collected by the sensors in the past hour.
+![Device Demo](vid_converted.gif)
 
 
 
@@ -63,7 +68,8 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 
 
 ### Our Circuuit Diagram
-![Diagram](.jpg)
+
+![Diagram](Diagram.jpg)
 
 
 
