@@ -149,7 +149,7 @@ This calculation provides the conversion rate from clicks to millimeters of rain
 ##  Mashal🎥  
 [![Watch the Video](Yair)](https://drive.google.com/file/d/1pzMQNw56-CucK9XnvPMlS3xP7YjBqYh9/view?usp=sharing)
 
-### Full Yair Explenation:
+### Yair's Full Explenation:
 [![Watch the Video](Yair)](https://drive.google.com/file/d/1bnbMqHPZWbym1N-Tkr1z-iVA7Qd7LRhc/view?usp=sharing)
 
 
