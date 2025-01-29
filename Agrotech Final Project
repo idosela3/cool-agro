@@ -146,6 +146,13 @@ This calculation provides the conversion rate from clicks to millimeters of rain
 
 
 
+##  🎥  
+[![Watch the Video](Yair)](https://drive.google.com/file/d/1pzMQNw56-CucK9XnvPMlS3xP7YjBqYh9/view?usp=sharing)
+
+
+
+
+
 ### Oled screen
 The OLED screen is controlled by a button. When the button is pressed, the screen displays the data collected by the sensors in the past hour.
 ![Device Demo](files/vid_converted.gif)
