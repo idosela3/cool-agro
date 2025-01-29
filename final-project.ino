@@ -18,19 +18,20 @@ const char* password = "1Afuna2gezer";
 // ThingSpeak Channel Information
 unsigned long channelID = 2799038;
 const char* writeAPIKey = "UC49K3PIIR0N7G5E";
+const char* readAPIKey = "FFMF9BQF85TRS7KQ";
 
 // MQTT Broker Information
 const char* mqtt_server = "192.168.0.102";
 const int mqtt_port = 1883;
 const char* mqtt_user = "mqtt-user";
 const char* mqtt_password = "1234";
-const char* mqtt_topic = "/greenhouse/outside/irrigation/solenoid6";
+const char* mqtt_topic = "/greenhouse/outside/irrigation/solenoid5";
 
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
 
 // Pin Definitions
-const int buttonPin = A4;       // Button to control OLED
+const int buttonPin = A3;       // Button to control OLED
 const int rainSensorPin = A0;   // Rain sensor input pin
 
 // Variables for Rain Sensor
@@ -48,18 +49,25 @@ bool displayActive = false;     // Track if OLED is active
 // Variables for Button Handling
 int lastButtonState = HIGH;     // Previous state of the button
 int currentButtonState = HIGH;  // Current state of the button
-bool buttonHandled = false;     // To ensure one press is handled once
+unsigned long lastDebounceTime = 0; // Debounce timer
+const unsigned long debounceDelay = 50; // Debounce delay (50ms)
 
 // Variables for Data Upload
 unsigned long lastUploadTime = 0;
 const unsigned long uploadInterval = 60000; // 1 minute
 
+// Time variables for faucet operation
+bool checkFaucetAM = false;
+bool checkFaucetPM = false;
+
 // Function Prototypes
 void connectWiFi();
+void connectMQTT();
 void uploadDataToThingSpeak();
 void displayMessage(int index);
 void handleRainSensor();
-void enterDeepSleep();
+void checkAndControlFaucet();
+void sendFaucetCommand(int command);
 
 void IRAM_ATTR rainPulseISR() {
   rainPulses++;
@@ -70,6 +78,9 @@ void setup() {
 
   // Initialize WiFi
   connectWiFi();
+
+  // Initialize MQTT
+  mqttClient.setServer(mqtt_server, mqtt_port);
 
   // Initialize OLED
   u8g2.begin();
@@ -94,20 +105,23 @@ void loop() {
   unsigned long currentMillis = millis();
 
   // Read the current state of the button
-  currentButtonState = digitalRead(buttonPin);
+  int reading = digitalRead(buttonPin);
 
-  // Detect valid button press (pressed and released)
-  if (currentButtonState == LOW && lastButtonState == HIGH) {
-    buttonHandled = true; // Button is pressed
+  // Debounce the button
+  if (reading != lastButtonState) {
+    lastDebounceTime = currentMillis;
   }
 
-  if (currentButtonState == HIGH && lastButtonState == LOW && buttonHandled) {
-    // Button released after being pressed
-    buttonPressCount = (buttonPressCount + 1) % 5; // Cycle through messages
-    displayMessage(buttonPressCount);
-    lastButtonPress = currentMillis; // Record time of button press
-    displayActive = true; // Keep OLED active
-    buttonHandled = false; // Reset button handling flag
+  if ((currentMillis - lastDebounceTime) > debounceDelay) {
+    // If the button state has changed
+    if (reading == LOW && currentButtonState == HIGH) {
+      // Button was pressed
+      buttonPressCount = (buttonPressCount + 1) % 5; // Cycle through messages
+      displayMessage(buttonPressCount);
+      lastButtonPress = currentMillis; // Record time of button press
+      displayActive = true; // Keep OLED active
+    }
+    currentButtonState = reading; // Update button state
   }
 
   // Turn off OLED after timeout
@@ -123,11 +137,14 @@ void loop() {
     lastUploadTime = currentMillis;
   }
 
+  // Check and control the faucet at 5 AM and 5 PM
+  checkAndControlFaucet();
+
   // Handle Rain Sensor Data
   handleRainSensor();
 
   // Update lastButtonState
-  lastButtonState = currentButtonState;
+  lastButtonState = reading;
 }
 
 void connectWiFi() {
@@ -140,6 +157,16 @@ void connectWiFi() {
   Serial.println("\nWiFi Connected");
 }
 
+void connectMQTT() {
+  while (!mqttClient.connected()) {
+    if (mqttClient.connect("ESP32Client", mqtt_user, mqtt_password)) {
+      Serial.println("Connected to MQTT");
+    } else {
+      delay(5000);
+    }
+  }
+}
+
 void uploadDataToThingSpeak() {
   if (WiFi.status() != WL_CONNECTED) {
     connectWiFi();
@@ -148,7 +175,6 @@ void uploadDataToThingSpeak() {
   float temperature = sht31.readTemperature();
   float humidity = sht31.readHumidity();
 
-  // Debugging: Print sensor data to Serial Monitor
   Serial.println("Uploading data to ThingSpeak:");
   Serial.print("Temperature: ");
   Serial.println(temperature);
@@ -157,14 +183,11 @@ void uploadDataToThingSpeak() {
   Serial.print("Rainfall: ");
   Serial.println(totalRainfall);
 
-  // Send data to ThingSpeak
   ThingSpeak.setField(1, temperature);
   ThingSpeak.setField(2, humidity);
   ThingSpeak.setField(3, totalRainfall);
 
   int response = ThingSpeak.writeFields(channelID, writeAPIKey);
-
-  // Debugging: Check the response from ThingSpeak
   if (response == 200) {
     Serial.println("Data uploaded successfully!");
   } else {
@@ -222,4 +245,33 @@ void handleRainSensor() {
     rainPulses++;
     totalRainfall += rainPerClick;
   }
+}
+
+void checkAndControlFaucet() {
+  time_t now = time(nullptr);
+  struct tm* timeInfo = localtime(&now);
+
+  if (timeInfo->tm_hour == 5 && !checkFaucetAM) {
+    float rainLast12Hours = ThingSpeak.readFloatField(channelID, 3, readAPIKey);
+    if (rainLast12Hours == 0) sendFaucetCommand(10); // 10 minutes
+    else if (rainLast12Hours <= 5) sendFaucetCommand(5); // 5 minutes
+    checkFaucetAM = true;
+  } else if (timeInfo->tm_hour == 17 && !checkFaucetPM) {
+    float rainLast12Hours = ThingSpeak.readFloatField(channelID, 3, readAPIKey);
+    if (rainLast12Hours == 0) sendFaucetCommand(10); // 10 minutes
+    else if (rainLast12Hours <= 5) sendFaucetCommand(5); // 5 minutes
+    checkFaucetPM = true;
+  } else if (timeInfo->tm_hour != 5) {
+    checkFaucetAM = false;
+  } else if (timeInfo->tm_hour != 17) {
+    checkFaucetPM = false;
+  }
+}
+
+void sendFaucetCommand(int minutes) {
+  connectMQTT();
+  mqttClient.publish(mqtt_topic, "1"); // Open faucet
+  delay(minutes * 60000); // Wait for specified minutes
+  mqttClient.publish(mqtt_topic, "0"); // Close faucet
+  Serial.println("Irrigation completed.");
 }
