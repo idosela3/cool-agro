@@ -186,3 +186,6 @@ This graph illustrates the RH levels measured by the sensor.
 ### Rain Graph
 This graph shows the rainfall data captured by the rain sensor.
 ![Rain Graph](files/Rain.jpg)
+
+### ThingSpeak Link:
+[(ThingSpeak Link)](https://thingspeak.mathworks.com/channels/2799038/private_show)
