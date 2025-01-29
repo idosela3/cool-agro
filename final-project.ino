@@ -24,7 +24,7 @@ const char* mqtt_server = "192.168.0.102";
 const int mqtt_port = 1883;
 const char* mqtt_user = "mqtt-user";
 const char* mqtt_password = "1234";
-const char* mqtt_topic = "/greenhouse/outside/irrigation/solenoid5";
+const char* mqtt_topic = "/greenhouse/outside/irrigation/solenoid6";
 
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
