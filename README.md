@@ -1,7 +1,7 @@
 
 # I'm Singing in the Rain
 
-![Singing in the Rain](G_converted.gif)
+![Singing in the Rain](files/G_converted.gif)
 
 
 Dolev Arav, Yehonatn Dimentman, Ido Sela, Liana Yohananov
@@ -29,25 +29,25 @@ The system will irrigate the plot every day at 5 AM and 5 PM based on the total 
 
 
 ### External View
-![External View](External1.jpg)
+![External View](files/External1.jpg)
 
 
 
 ### Internal Components
 #### Main Circuit Board
-![Main Circuit Board](main.jpg)
+![Main Circuit Board](files/main.jpg)
 
 ### PCB  5X7 cm:
-![Board](p.jpg)
+![Board](files/p.jpg)
 
 ### PCB 9x15 cm:
-![Board2](p2.jpg)
+![Board2](files/p2.jpg)
 
 
 
 ### Our Circuuit Diagram
 
-![Diagram](Diagram.jpg)
+![Diagram](files/Diagram.jpg)
 
 
 
@@ -73,11 +73,11 @@ We will explain how the number of clicks is converted into milliliters (mL) and 
 
 
 ### Rain Sensor 
-![Rain Sensor](Ra.jpg)
+![Rain Sensor](files/Ra.jpg)
 
-![Rain Sensor](Rai.jpg)
+![Rain Sensor](files/Rai.jpg)
 
-![Rain Sensor](R.jpg)
+![Rain Sensor](files/R.jpg)
 
 
 
@@ -101,43 +101,43 @@ The area of our sensor is:
 
 To determine the amount of water captured by the sensor, we use the ratio of the areas between the box and the sensor:
 
-![Rain Sensor Formula](1.png)
+![Rain Sensor Formula](files/1.png)
 
 
 
 
 Where:  
-![Vbox](2.png)
+![Vbox](files/2.png)
  is the volume of water falling into the box, which is 1 liter.
 
 By substituting the values into the formula:
 
 
-![Vsensor](3.png)
+![Vsensor](files/3.png)
 
 Simplifying further:
 
-![Simplifying further](4.png)
+![Simplifying further](files/4.png)
 
 From this calculation, we observe that when 1 mm of rain falls into the box (or 1 liter), the amount of water collected by the sensor is 5.5 mL. Thus, the conversion factor is:
 
-![Simplifying further](5.png)
+![Simplifying further](files/5.png)
 
 #### Conversion from Clicks to mm
 After determining the conversion factor between the rainfall in mm for the box and the volume in mL collected by the sensor, we now convert clicks to mL and subsequently to mm. To do so, we use **Assumption 2**.
 
 Substituting **Assumption 2** into the formula:
 
-![Box](6.png)
+![Box](files/6.png)
 
 Isolating the value per click:
 
-![Simplifying further](new7.png)
+![Simplifying further](files/new7.png)
 
 
 Thus, we find that each click represents:
 
-![Simplifying further](new8.png)
+![Simplifying further](files/new8.png)
 
 This calculation provides the conversion rate from clicks to millimeters of rainfall.
 
@@ -148,7 +148,8 @@ This calculation provides the conversion rate from clicks to millimeters of rain
 
 ### Oled screen
 The OLED screen is controlled by a button. When the button is pressed, the screen displays the data collected by the sensors in the past hour.
-![Device Demo](vid_converted.gif)
+![Device Demo](files/vid_converted.gif)
+
 
 ## Sensor Data Visualization
 Graphs representing the collected data from the sensors, including temperature, humidity, and rainfall.
@@ -157,14 +158,14 @@ Graphs representing the collected data from the sensors, including temperature, 
 
 ### Temperature Graph
 This graph represents the temperature data collected by the sensor.
-![Temperature Graph](Temp.jpg)
+![Temperature Graph](files/Temp.jpg)
 
 
 
 
 ### RH Graph
 This graph illustrates the RH levels measured by the sensor.
-![Humidity Graph](HR.jpg)
+![Humidity Graph](files/HR.jpg)
 
 
 
@@ -172,5 +173,4 @@ This graph illustrates the RH levels measured by the sensor.
 
 ### Rain Graph
 This graph shows the rainfall data captured by the rain sensor.
-![Rain Graph](Rain.jpg)
-
+![Rain Graph](files/Rain.jpg)
