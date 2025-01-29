@@ -11,7 +11,7 @@
 4. 1x FireBeetle 2 ESP32-E
 5. 1x botton 
 6. 1x Buck convertor 
-7. 1x Resistor 1K 
+7. 1x Resistor 1KΩ 
 8. 1x OLED Screen 
  
  sensors: 
