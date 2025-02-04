@@ -7,18 +7,18 @@
 Dolev Arav, Yehonatn Dimentman, Ido Sela, Liana Yohananov
 
 #### *Components*
-1. [1x PCB  5X7 cm(Printed Circuit Board)](https://sastronlimited.com/product/pcb-circuit-board-5x7cm-single-prototype-pcb-universal-printed-circuit-board-universal/)
-2. [1x PCB 9x15 cm](https://hubtronics.in/9x15cm-double-sided-pcb-board)
-3. [2x Boxes](https://www.digikey.co.il/he/products/detail/serpac/032,GY/307527?gclsrc=aw.ds&&utm_adgroup=&utm_source=google&utm_medium=cpc&utm_campaign=PMax_Product_L%20Runner&utm_term=&productid=307527&utm_content=&utm_id=go_cmp-20158096705_adg-_ad-__dev-c_ext-_prd-307527_sig-Cj0KCQiA4-y8BhC3ARIsAHmjC_E6ZxI3Hn3FR8iidUplO33CM01ca_AFMdk6UsEWYJNrJsl13fiAdEcaAjzlEALw_wcB&gad_source=1&gclid=Cj0KCQiA4-y8BhC3ARIsAHmjC_E6ZxI3Hn3FR8iidUplO33CM01ca_AFMdk6UsEWYJNrJsl13fiAdEcaAjzlEALw_wcB) 
-4. [1x FireBeetle 2 ESP32-E](https://www.dfrobot.com/product-2195.html)
-5. [1x botton](https://www.instructables.com/Read-a-Pushbutton-With-Digital-Input/)
-6. [1x Buck convertor](https://www.pixelelectric.com/lm2596-dc-dc-buck-converter-step-down-power-module/) 
-7. [1x Resistor 1KΩ](https://www.filotronix.com/fixed-value-resistors/279-1k-carbon-resistor.html) 
-8. [1x OLED Screen](https://www.instructables.com/Monochrome-096-i2c-OLED-display-with-arduino-SSD13/) 
+1. [1x PCB  5X7 cm(Printed Circuit Board)](https://medium.com/@rxseger/notes-on-prototyping-circuit-boards-c5906e637123)
+2. [1x PCB 9x15 cm](https://medium.com/@rxseger/notes-on-prototyping-circuit-boards-c5906e637123)
+3. [2x Boxes](https://www.mouser.co.il/c/enclosures/standard-electrical/electrical-enclosures/?product=Junction%20Boxes) 
+4. [1x FireBeetle 2 ESP32-E](https://www.espressif.com/en/products/socs/esp32)
+5. [1x button](https://docs.arduino.cc/built-in-examples/digital/Button/)
+6. [1x Buck convertor](https://www.instructables.com/How-to-Use-DC-to-DC-Buck-Converter-LM2596/) 
+7. [1x Resistor 1KΩ](https://www.exploringarduino.com/parts/1kohm-resistor/) 
+8. [1x OLED Screen](https://randomnerdtutorials.com/guide-for-oled-display-with-arduino/) 
  
  sensors: 
-1. [1x SHT30 Sensor (Temperature and RH)](https://nettigo.eu/products/sensirion-sht30-humidity-and-temperature-sensor-with-i2c-interface)   
-2. [1x Rain Sensor](https://botland.store/weather-sensors/23474-gravity-rainfall-sensor-i2c-and-uart-dfrobot-sen0575-6959420923632.html)
+1. [1x SHT30 Sensor (Temperature and RH)](https://wiki.dfrobot.com/SHT31_Temperature_Humidity_Sensor_Weatherproof_SKU_SEN0385)   
+2. [1x Rain Sensor (Tipping Bucket Rainfall Sensor - I2C & UART)](https://github.com/DFRobot/DFRobot_RainfallSensor)
 
 ## System Goals  
 The system will irrigate the plot every day at 5 AM and 5 PM based on the total amount of rain that fell in the last 12 hours.  
@@ -188,4 +188,4 @@ This graph shows the rainfall data captured by the rain sensor.
 ![Rain Graph](files/Rain.jpg)
 
 ### ThingSpeak Link:
-[(ThingSpeak Link)](https://thingspeak.mathworks.com/channels/2799038/private_show)
+[(ThingSpeak Link)](https://thingspeak.mathworks.com/channels/2799038)
